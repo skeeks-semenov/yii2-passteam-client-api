@@ -1,0 +1,28 @@
+{
+	"name": "passteam/yii2-client-api",
+	"description": "Passteam yii2 client api",
+	"keywords": ["yii", "app", "skeeks", "framework", "api"],
+    "homepage": "http://www.skeeks.com/",
+	"type": "yii2-extension",
+	"license": "BSD-3-Clause",
+	"support": {
+        "issues": "http://www.skeeks.com/",
+        "wiki": "http://wiki.cardsmile.ru:8090/display/PAS/API",
+        "source": "https://github.com/skeeks-semenov/yii2-passteam-client-api.git"
+    },
+	"authors": [
+		{
+			"name": "Semenov Alexander",
+			"email": "semenov@skeeks.com"
+		}
+	],
+	"require": {
+		"yiisoft/yii2": "*",
+        "yiisoft/yii2-httpclient": "*"
+	},
+    "autoload": {
+        "psr-4": {
+            "passteam\\client\\api\\": ""
+        }
+    }
+}
