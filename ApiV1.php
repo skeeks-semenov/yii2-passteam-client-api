@@ -23,9 +23,10 @@ class ApiV1 extends ApiBase
      * @see http://wiki.cardsmile.ru:8090/pages/viewpage.action?pageId=9469992;
      * @return helpers\ApiResponse
      */
-    public function getTemplates()
+    public function getTemplates($request = [])
     {
-        return $this->send('/gettemplates');
+        //$request = ['passTypeId' => '']
+        return $this->send('/gettemplates', $request);
     }
 
     /**
