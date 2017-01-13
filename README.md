@@ -59,6 +59,8 @@ How to use
     ]
 ]
 
+
+
 ```
 
 Examples
@@ -66,11 +68,31 @@ Examples
 
 ```php
 
-$response = \Yii::$app->v3projectApi->send('/gettemplates', []);
+$response = \Yii::$app->passteamApi->send('/gettemplates', []);
 
-$response = \Yii::$app->v3projectApi->send('/getcards', [
+$response = \Yii::$app->passteamApi->send('/getcards', [
     'templateId' => 'TEMPLATE_ID'
 ]);
+
+
+
+print_r($response->httpClientRequest->url);     //Full api url
+print_r($response->httpClientRequest->data);    //Request data
+print_r($response->httpClientRequest->method);  //Request method
+print_r($response->httpClientRequest->headers); //Request headers
+
+print_r($response->httpClientResponse->statusCode); //Server response code
+print_r($response->httpClientResponse->content);    //Original api response
+
+if ($response->isError)
+{
+    print_r($response->errorMessage); //Расшифровка кода
+    print_r($response->errorData);
+    print_r($response->errorCode);
+} else
+{
+    print_r($response->data); //Array response data
+}
 
 ```
 ___

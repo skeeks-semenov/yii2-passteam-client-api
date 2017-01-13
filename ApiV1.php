@@ -5,36 +5,54 @@
  * @copyright 2010 SkeekS (СкикС)
  * @date 15.09.2016
  */
-namespace v3toys\v3project\api;
+namespace passteam\client\api;
 /**
- * Class ApiV5
+ * Class ApiV1
  *
- * @package v3toys\v3project\api
+ * @package passteam\client\api
  */
 class ApiV1 extends ApiBase
 {
     const VERSION = 'v1';
 
     /**
-     * Получение информации о товарах
-     * 
-     * @param array $params 
-     * exemple:
-     * [
-            'filters' =>
-            [
-                'v3p_product_ids' => [186893]
-            ],
-            'params' =>
-            [
-                'format' => 'without_features'
-            ]
-        ]
+     * Информация о Шаблонах
      *
+     * Получение подробной информации о всех доступных Шаблонах для пользователя.
+     *
+     * @see http://wiki.cardsmile.ru:8090/pages/viewpage.action?pageId=9469992;
      * @return helpers\ApiResponse
      */
-    public function productFind($params = [])
+    public function getTemplates()
     {
-        return $this->send('/product/find', $params);
+        return $this->send('/gettemplates');
+    }
+
+    /**
+     * Информация об Электронных картах
+     *
+     * Используется для получения информации о всех Электронных картах, созданных по определенному Шаблона
+     *
+     * @see http://wiki.cardsmile.ru:8090/pages/viewpage.action?pageId=9470005
+     * @return helpers\ApiResponse
+     */
+    public function getCards($request = ['templateId' => ''])
+    {
+        return $this->send('/getcards', $request);
+    }
+
+    /**
+     * Информация об Электронной карте
+     *
+     * Используется для получения подробной информации об Электронной карте.
+     *
+     * @see http://wiki.cardsmile.ru:8090/pages/viewpage.action?pageId=9470005
+     * @return helpers\ApiResponse
+     */
+    public function getCard($cardId)
+    {
+        return $this->send('/getcard', [
+            'cardId' => $cardId
+        ]);
     }
 }

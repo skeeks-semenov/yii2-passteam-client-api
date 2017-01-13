@@ -7,10 +7,8 @@
  */
 namespace passteam\client\api;
 
+use passteam\client\api\helpers\ApiResponse;
 use skeeks\cms\helpers\StringHelper;
-use v3toys\v3project\api\helpers\ApiResponse;
-use v3toys\v3project\api\helpers\ApiResponseError;
-use v3toys\v3project\api\helpers\ApiResponseOk;
 use yii\base\Component;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
@@ -75,8 +73,15 @@ abstract class ApiBase extends Component
      * @var array
      */
     static public $errorStatuses = [
-        '404'   =>  'Запрошенный метод апи не существует',
-        '500'   =>  'Произошла внутренняя ошибка сервиса во время обработки',
+        '400'   =>  'Ошибка передачи параметров',
+        '401'   =>  'Ошибка авторизации',
+        '403'   =>  'Ошибка доступа',
+        '404'   =>  'Запрошенный ресурс не найден',
+        '409'   =>  'Попытка дублирования записи',
+        '500'   =>  'Внутренняя ошибка сервера',
+        '502'   =>  'Внутренняя ошибка сервера',
+        '503'   =>  'Внутренняя ошибка сервера',
+        '504'   =>  'Внутренняя ошибка сервера',
     ];
 
 
@@ -92,14 +97,15 @@ abstract class ApiBase extends Component
         $apiUrl = $this->baseUrl . $apiMethod;
 
         $client = new Client([
-            'requestConfig' => [
+            /*'requestConfig' => [
                 'format' => Client::FORMAT_JSON
-            ]
+            ]*/
         ]);
 
         $httpRequest = $client->createRequest()
                             ->setMethod("POST")
                             ->setUrl($apiUrl)
+                            ->addHeaders(['Authorization' => $this->accessToken])
                             ->addHeaders(['Content-type' => 'application/json'])
                             ->addHeaders(['user-agent' => 'JSON-RPC PHP Client'])
                             ->setData($params)

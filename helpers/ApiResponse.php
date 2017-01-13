@@ -9,13 +9,15 @@ namespace passteam\client\api\helpers;
 
 use v3toys\v3project\api\Api;
 use yii\base\Component;
+use yii\helpers\ArrayHelper;
 use yii\httpclient\Request;
 use yii\httpclient\Response;
 
 /**
  * Описание общих полей запросов
  *
- * @property bool isOk read-only
+ * @property bool $isOk read-only
+ * @property bool $result read-only
  *
  * @package passteam\client\api\helpers
  */
@@ -109,5 +111,13 @@ class ApiResponse extends Component
 
             return;
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResult()
+    {
+        return ArrayHelper::getValue($this->data, 'result');
     }
 }
