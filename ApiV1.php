@@ -56,4 +56,19 @@ class ApiV1 extends ApiBase
             'cardId' => $cardId
         ]);
     }
+
+    /**
+     * Создание Электронной карты
+     * Создание Электронной карты по определенному Шаблону
+     *
+     * @param string $templateId
+     * @param array $request
+     *
+     * @return helpers\ApiResponse
+     */
+    public function createCard($templateId, $request = [])
+    {
+        $request['templateId'] = $templateId;
+        return $this->send('/createcard', $request);
+    }
 }
